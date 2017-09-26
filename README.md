@@ -74,7 +74,7 @@ Exceptions are failures and unwind the stack back to the call to `xr/run`.
 Read clojure.spec error data directly, or pipe it to an error reporter
 or visualizer of your choice.
 
-# Code requse
+# Code reuse
 
 Clojure language semantics. Write functions in namespaces and have
 .repl scripts require them as needed.
