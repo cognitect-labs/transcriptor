@@ -41,7 +41,7 @@ Work at the REPL. Whenver you want to convert a chunk of work into a
 test, just copy it into a file with a .repl suffix. You can later call
 `xr/run` on a REPL file:
 
-    (require '[cognitect.transcriptor :as xr :refer (check!])
+    (require '[cognitect.transcriptor :as xr :refer (check!)])
     (xr/run "your-file-name-here.repl")
 
 `run` launches a REPL that consumes all forms in the file passed
