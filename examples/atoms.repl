@@ -1,0 +1,35 @@
+;; compare with https://github.com/clojure/clojure/blob/a8f1c6436a8bfe181b0a00cf9e44845dcbbb63ee/test/clojure/test_clojure/atoms.clj
+(require '[cognitect.transcriptor :as xr :refer (check!)]
+         '[cognitect.transcriptor.examples.generators :refer (one-of)]
+         '[clojure.spec.alpha :as s]
+         '[clojure.spec.test.alpha :as test])
+
+(comment "exact match test")
+@(def a (atom 0))
+(swap-vals! a inc)
+(check! #{[0 1]})
+
+(comment "property test")
+(s/def ::inced (s/and (s/tuple int int?)
+                      (fn [[before after]] (= (inc before) after))))
+@(def a (atom (one-of int?)))
+(swap-vals! a inc)
+(check! ::inced)
+
+(comment "generative exploration")
+(s/fdef swap-inc-atom
+        :args (s/cat :initial (s/int-in -1000000 1000000))
+        :ret ::inced
+        :fn (fn [{:keys [args ret]}]
+              (let [initial (:initial args)]
+                (= (first ret) initial))))
+(defn swap-inc-atom
+  [x]
+  (swap-vals! (atom x) inc))
+(s/exercise-fn #'swap-inc-atom)
+
+(comment "generative testing")
+(-> (test/check `swap-inc-atom)
+    (test/summarize-results))
+;; this needs a helper fn:
+(check! #{{:total 1 :check-passed 1}})
