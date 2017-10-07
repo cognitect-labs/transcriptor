@@ -10,7 +10,7 @@
 (check! #{[0 1]})
 
 (comment "property test")
-(s/def ::inced (s/and (s/tuple int int?)
+(s/def ::inced (s/and (s/tuple int? int?)
                       (fn [[before after]] (= (inc before) after))))
 @(def a (atom (one-of int?)))
 (swap-vals! a inc)
