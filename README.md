@@ -37,7 +37,7 @@ entire API is four functions:
 
 # Approach
 
-Work at the REPL. Whenver you want to convert a chunk of work into a
+Work at the REPL. Whenever you want to convert a chunk of work into a
 test, just copy it into a file with a .repl suffix. You can later call
 `xr/run` on a REPL file:
 
